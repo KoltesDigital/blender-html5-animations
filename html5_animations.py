@@ -22,6 +22,12 @@ from bpy.types import Operator
 from bpy_extras.io_utils import ExportHelper
 
 
+Easing = bpy.types.GRAPH_OT_easing_type.bl_rna.properties['type'].enum_items
+Extrapolation = bpy.types.GRAPH_OT_extrapolation_type.bl_rna.properties['type'].enum_items
+Interpolation = bpy.types.GRAPH_OT_interpolation_type.bl_rna.properties['type'].enum_items
+RotationModes = bpy.types.POSE_OT_rotation_mode_set.bl_rna.properties['type'].enum_items
+
+
 def export_json():
     actions = []
     return {
