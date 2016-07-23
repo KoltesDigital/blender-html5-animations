@@ -1,0 +1,27 @@
+{
+  "name": "blender-html5-animations",
+  "version": "0.1.0",
+  "description": "Use animation curves from Blender.",
+  "main": "./src/index.js",
+  "scripts": {
+    "build": "webpack",
+    "build-min": "webpack --config webpack.min.config.js",
+    "build-doc": "jsdoc -c jsdoc.config.json",
+    "build-examples": "cd examples && blender -b animations.blend -P ../../blender-addon/html5_animations.py -P export_animations.py",
+    "build-all": "npm run build && npm run build-min && npm run build-doc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KoltesDigital/blender-html5-animations.git"
+  },
+  "keywords": [
+    "blender",
+    "animations"
+  ],
+  "author": "Jonathan Giroux",
+  "license": "MIT",
+  "devDependencies": {
+    "jsdoc": "^3.4.0",
+    "webpack": "^1.13.1"
+  }
+}

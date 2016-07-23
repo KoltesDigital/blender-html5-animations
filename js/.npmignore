@@ -1,0 +1,6 @@
+.jshintrc
+docs/
+dist/
+example/
+jsdoc.*
+webpack.*

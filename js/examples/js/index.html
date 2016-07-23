@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<style>
+body {
+	margin: 0;
+}
+
+code {
+	border: 1px solid #eee;
+	border-radius: 4px;
+	padding: 4px;
+}
+
+pre {
+	border: 1px solid #eee;
+	border-radius: 4px;
+	padding: 10px;
+}
+
+.message {
+	display: none;
+	margin: 20px;
+}
+
+#object {
+	display: none;
+	position: absolute;
+}
+	</style>
+	</head>
+	<body>
+		<div id="build-missing" class="message">
+			<p>If Blender is in your PATH, run the following command from the <code>js</code> directory:</p>
+			<pre>npm run build-examples</pre>
+			<p>Otherwise, or if you haven't understood the previous paragraph, open <code>animations.blend</code> (in the parent directory) and use the HTML5 Animations add-on to export <code>exported-animations.js</code> (in this directory) with the default settings.</p>
+			<p>Afterwards, refresh this page.</p>
+		</div>
+		<div id="object">My object</div>
+		<script src="gl-matrix-min.js"></script>
+		<script src="exported-animations.js"></script>
+		<script src="../../dist/blender-html5-animations.min.js"></script>
+		<script src="script.js"></script>
+	</body>
+</html>

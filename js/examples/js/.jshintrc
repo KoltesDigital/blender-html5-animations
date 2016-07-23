@@ -1,0 +1,11 @@
+{
+	"browser": true,
+	"eqeqeq": true,
+	"globals": {
+		"ActionLibrary": false,
+		"actions": false,
+		"RotationMode": false
+	},
+	"undef": true,
+	"unused": true
+}

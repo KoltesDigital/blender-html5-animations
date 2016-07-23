@@ -1,0 +1,13 @@
+{
+	"source": {
+		"include": [
+            "src"
+        ]
+	},
+	"opts": {
+		"destination": "./docs/",
+		"encoding": "utf8",
+		"readme": "./Readme.md",
+		"recurse": true
+	}
+}

@@ -1,0 +1,4 @@
+exported-*
+node_modules/
+npm-debug.log
+*.blend?

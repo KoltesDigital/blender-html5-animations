@@ -10,7 +10,7 @@ bl_info = {
     "location": "File > Export > HTML5 Animations",
     "description": "Export animation curves as CSS, JS, or JSON.",
     "warning": "",
-    "wiki_url": "http://wiki.blender.org/index.php/Extensions:2.6/Py/Scripts/System/Addon_Registry",
+    "wiki_url": "http://wiki.blender.org/index.php/Extensions:2.6/Py/Scripts/System/HTML5_Animations",
     "category": "Import-Export",
 }
 
