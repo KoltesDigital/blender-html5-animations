@@ -41,9 +41,9 @@ def export_json(time_coefficient):
             while len(fcurves_arr) <= fcurve.array_index:
                 fcurves_arr.append(0)
 
-            points_arr = []
+            keyframes_arr = []
             for keyframe_point in fcurve.keyframe_points:
-                point_arr = [
+                keyframe_arr = [
                     keyframe_point.co[0] * time_coefficient,
                     keyframe_point.co[1],
                     keyframe_point.handle_left[0] * time_coefficient,
@@ -53,10 +53,10 @@ def export_json(time_coefficient):
                     Interpolations[keyframe_point.interpolation].value,
                     Easings[keyframe_point.easing].value,
                 ]
-                points_arr.append(point_arr)
+                keyframes_arr.append(keyframe_arr)
 
             fcurve_obj = [
-                points_arr,
+                keyframes_arr,
                 Extrapolations[fcurve.extrapolation].value,
             ]
 
