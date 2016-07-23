@@ -22,17 +22,64 @@ from bpy.types import Operator
 from bpy_extras.io_utils import ExportHelper
 
 
-Easing = bpy.types.GRAPH_OT_easing_type.bl_rna.properties['type'].enum_items
-Extrapolation = bpy.types.GRAPH_OT_extrapolation_type.bl_rna.properties['type'].enum_items
-Interpolation = bpy.types.GRAPH_OT_interpolation_type.bl_rna.properties['type'].enum_items
-RotationModes = bpy.types.POSE_OT_rotation_mode_set.bl_rna.properties['type'].enum_items
+Easings = bpy.types.GRAPH_OT_easing_type.bl_rna.properties['type'].enum_items
+Extrapolations = bpy.types.GRAPH_OT_extrapolation_type.bl_rna.properties['type'].enum_items
+Interpolations = bpy.types.GRAPH_OT_interpolation_type.bl_rna.properties['type'].enum_items
 
 
-def export_json():
-    actions = []
-    return {
-        "actions": actions
-    }
+def export_json(time_coefficient):
+    actions_obj = {}
+
+    for action in bpy.data.actions:
+        fcurves_obj = {}
+        for fcurve in action.fcurves:
+            if fcurve.data_path not in fcurves_obj:
+                fcurves_obj[fcurve.data_path] = []
+            fcurves_arr = fcurves_obj[fcurve.data_path]
+
+            # Fill missing array indexes
+            while len(fcurves_arr) <= fcurve.array_index:
+                fcurves_arr.append(0)
+
+            points_arr = []
+            for keyframe_point in fcurve.keyframe_points:
+                point_arr = [
+                    keyframe_point.co[0] * time_coefficient,
+                    keyframe_point.co[1],
+                    keyframe_point.handle_left[0] * time_coefficient,
+                    keyframe_point.handle_left[1],
+                    keyframe_point.handle_right[0] * time_coefficient,
+                    keyframe_point.handle_right[1],
+                    Interpolations[keyframe_point.interpolation].value,
+                    Easings[keyframe_point.easing].value,
+                ]
+                points_arr.append(point_arr)
+
+            fcurve_obj = [
+                points_arr,
+                Extrapolations[fcurve.extrapolation].value,
+            ]
+
+            fcurves_arr[fcurve.array_index] = fcurve_obj
+
+        markers_arr = []
+        for marker in action.pose_markers:
+            marker_arr = [
+                marker.frame * time_coefficient,
+                marker.name,
+            ]
+            markers_arr.append(marker_arr)
+
+        action_arr = [
+            fcurves_obj,
+        ]
+
+        if len(markers_arr) > 0:
+            action_arr.append(markers_arr)
+
+        actions_obj[action.name] = action_arr
+
+    return actions_obj
 
 
 class Export(Operator, ExportHelper):
@@ -108,6 +155,7 @@ class Export(Operator, ExportHelper):
             layout.prop(self, 'js_json_pretty_formatting')
 
     def execute(self, context):
+        time_coefficient = context.scene.render.fps_base / context.scene.render.fps
 
         if self.format == 'CSS':
             self.report({'ERROR'}, "Not implemented")
@@ -120,7 +168,7 @@ class Export(Operator, ExportHelper):
                 indent = None
                 separators = (',', ':')
 
-            obj = export_json()
+            obj = export_json(time_coefficient)
 
             if self.format == 'JS':
                 with open(self.filepath, 'w', encoding='utf-8') as f:
