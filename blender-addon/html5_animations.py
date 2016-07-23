@@ -51,8 +51,18 @@ def export_json(time_coefficient):
                     keyframe_point.handle_right[0] * time_coefficient,
                     keyframe_point.handle_right[1],
                     Interpolations[keyframe_point.interpolation].value,
-                    Easings[keyframe_point.easing].value,
                 ]
+
+                if keyframe_point.interpolation not in {'BEZIER', 'CONSTANT', 'LINEAR'}:
+                    keyframe_arr.append(Easings[keyframe_point.easing].value)
+
+                    if keyframe_point.interpolation == 'BACK':
+                        keyframe_arr.append(keyframe_point.back)
+
+                    if keyframe_point.interpolation == 'ELASTIC':
+                        keyframe_arr.append(keyframe_point.amplitude)
+                        keyframe_arr.append(keyframe_point.period)
+
                 keyframes_arr.append(keyframe_arr)
 
             fcurve_obj = [
