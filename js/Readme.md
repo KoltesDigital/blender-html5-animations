@@ -6,12 +6,17 @@ Use animation curves from Blender.
 
 The entry point is the class *ActionLibrary*. Create an *ActionLibrary* with the data exported from Blender, and enjoy.
 
+The library relies on [glMatrix](https://github.com/toji/gl-matrix) for math computations.
+
 ## Browser
 
-Copy *blender-html5-animations.min.js* in the *dist* folder.
+Copy *blender-html5-animations.min.js* from the *dist* folder.
+
+Copy *gl-matrix-min.js* from [glMatrix](https://github.com/toji/gl-matrix)'s *dist* folder, or use a [CDN](https://cdnjs.com/libraries/gl-matrix).
 
 ```html
 <script src="exported-data.js"></script>
+<script src="gl-matrix-min.js"></script>
 <script src="blender-html5-animations.min.js"></script>
 <script>
 	var myActionLibrary = new ActionLibrary(exportedData);
