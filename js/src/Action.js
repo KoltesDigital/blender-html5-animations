@@ -1,8 +1,8 @@
 'use strict';
 
-var glMatrix = require('glMatrix');
-var mat4 = require('mat4');
-var vec3 = require('vec3');
+var glMatrix = require('gl-matrix');
+var mat4 = glMatrix.mat4;
+var vec3 = glMatrix.vec3;
 
 var FCurveArray = require('./FCurveArray');
 var Marker = require('./Marker');

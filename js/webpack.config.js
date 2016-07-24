@@ -13,9 +13,7 @@ var header = [
 module.exports = {
 	entry: entry,
 	externals: {
-		"glMatrix": "glMatrix",
-		"mat4": "mat4",
-		"vec3": "vec3",
+		"gl-matrix": "glMatrix",
 	},
 	output: {
 		path: 'dist',
