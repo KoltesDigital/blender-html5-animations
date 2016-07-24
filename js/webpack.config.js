@@ -13,12 +13,13 @@ var header = [
 module.exports = {
 	entry: entry,
 	externals: {
-		"gl-matrix": "glMatrix",
+		"gl-matrix": "window",
 	},
 	output: {
 		path: 'dist',
 		filename: 'blender-html5-animations.js',
 		libraryTarget: 'umd',
+		library: 'blenderHTML5Animations',
 	},
 	plugins: [
 		new webpack.BannerPlugin(header, { raw: true }),

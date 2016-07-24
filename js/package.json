@@ -23,5 +23,8 @@
   "devDependencies": {
     "jsdoc": "^3.4.0",
     "webpack": "^1.13.1"
+  },
+  "dependencies": {
+    "gl-matrix": "^2.3.2"
   }
 }

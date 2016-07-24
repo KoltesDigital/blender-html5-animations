@@ -9,7 +9,7 @@
 	var objectElement = document.getElementById('object');
 	objectElement.style.display = 'block';
 
-	var myActions = new ActionLibrary(actions);
+	var myActions = new blenderHTML5Animations.ActionLibrary(actions);
 	var myAction = myActions['my-action'];
 	var myActionTime = myAction.startTime;
 
@@ -45,7 +45,7 @@
 
 		myActionTime = newActionTime;
 
-		myAction.setElementTransform(objectElement, myActionTime, RotationMode.EULER_XYZ);
+		myAction.setElementTransform(objectElement, myActionTime, blenderHTML5Animations.RotationMode.EULER_XYZ);
 	}
 
 	requestAnimationFrame(render);

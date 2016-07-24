@@ -2,9 +2,8 @@
 	"browser": true,
 	"eqeqeq": true,
 	"globals": {
-		"ActionLibrary": false,
-		"actions": false,
-		"RotationMode": false
+		"blenderHTML5Animations": false,
+		"actions": false
 	},
 	"undef": true,
 	"unused": true

@@ -1,8 +1,10 @@
 'use strict';
 
-var glMatrix = require('gl-matrix');
-var mat4 = glMatrix.mat4;
-var vec3 = glMatrix.vec3;
+var glMatrixLib = require('gl-matrix');
+
+var glMatrix = glMatrixLib.glMatrix;
+var mat4 = glMatrixLib.mat4;
+var vec3 = glMatrixLib.vec3;
 
 var FCurveArray = require('./FCurveArray');
 var Marker = require('./Marker');
@@ -97,6 +99,15 @@ Action.prototype.toWorld = function(out, time, rotationMode) {
 	mat4.translate(out, out, location);
 
 	switch (rotationMode) {
+		case RotationMode.QUATERNION:
+			[paths.rotation_quaternion, paths.delta_rotation_quaternion].forEach(function(path) {
+				if (path) {
+					mat4.fromQuat(qmat, path.evaluate(time, FCurveArray.DefaultValues.ROTATION_QUATERNION));
+					mat4.multiply(out, out, qmat);
+				}
+			});
+			break;
+
 		case RotationMode.EULER_XYZ:
 			computeEulerAngles();
 			mat4.rotateZ(out, out, angles[2]);
@@ -145,15 +156,6 @@ Action.prototype.toWorld = function(out, time, rotationMode) {
 				var vec = paths.rotation_axis.evaluate(time, FCurveArray.DefaultValues.ROTATION);
 				mat4.rotate(out, out, vec[3], vec);
 			}
-			break;
-
-		case RotationMode.QUATERNION:
-			[paths.rotation_quaternion, paths.delta_rotation_quaternion].forEach(function(path) {
-				if (path) {
-					mat4.fromQuat(qmat, path.evaluate(time, FCurveArray.DefaultValues.ROTATION_QUATERNION));
-					mat4.multiply(out, out, qmat);
-				}
-			});
 			break;
 	}
 
