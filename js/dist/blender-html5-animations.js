@@ -5,14 +5,14 @@
  */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("glMatrix"), require("mat4"), require("vec3"));
+		module.exports = factory(require("glMatrix"));
 	else if(typeof define === 'function' && define.amd)
-		define(["glMatrix", "mat4", "vec3"], factory);
+		define(["glMatrix"], factory);
 	else {
-		var a = typeof exports === 'object' ? factory(require("glMatrix"), require("mat4"), require("vec3")) : factory(root["glMatrix"], root["mat4"], root["vec3"]);
+		var a = typeof exports === 'object' ? factory(require("glMatrix")) : factory(root["glMatrix"]);
 		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
 	}
-})(this, function(__WEBPACK_EXTERNAL_MODULE_7__, __WEBPACK_EXTERNAL_MODULE_8__, __WEBPACK_EXTERNAL_MODULE_9__) {
+})(this, function(__WEBPACK_EXTERNAL_MODULE_7__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -67,7 +67,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports.RotationMode = __webpack_require__(4);
 
 	module.exports.ActionLibrary = __webpack_require__(5);
-	module.exports.FCurveArray = __webpack_require__(10);
+	module.exports.FCurveArray = __webpack_require__(8);
 
 
 /***/ },
@@ -228,11 +228,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	'use strict';
 
 	var glMatrix = __webpack_require__(7);
-	var mat4 = __webpack_require__(8);
-	var vec3 = __webpack_require__(9);
+	var mat4 = glMatrix.mat4;
+	var vec3 = glMatrix.vec3;
 
-	var FCurveArray = __webpack_require__(10);
-	var Marker = __webpack_require__(15);
+	var FCurveArray = __webpack_require__(8);
+	var Marker = __webpack_require__(13);
 	var RotationMode = __webpack_require__(4);
 
 	/**
@@ -434,23 +434,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 8 */
-/***/ function(module, exports) {
-
-	module.exports = __WEBPACK_EXTERNAL_MODULE_8__;
-
-/***/ },
-/* 9 */
-/***/ function(module, exports) {
-
-	module.exports = __WEBPACK_EXTERNAL_MODULE_9__;
-
-/***/ },
-/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var FCurve = __webpack_require__(11);
+	var FCurve = __webpack_require__(9);
 	/**
 	 * Provides a value when a FCurve does not exist.
 	 * @callback FCurveArray~DefaultValues
@@ -512,17 +500,17 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 11 */
+/* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var bezier = __webpack_require__(12);
-	var easing = __webpack_require__(13);
+	var bezier = __webpack_require__(10);
+	var easing = __webpack_require__(11);
 	var Easing = __webpack_require__(1);
 	var Extrapolation = __webpack_require__(2);
 	var Interpolation = __webpack_require__(3);
-	var Keyframe = __webpack_require__(14);
+	var Keyframe = __webpack_require__(12);
 
 	/**
 	 * @class A FCurveArray is an array of FCurves.
@@ -715,7 +703,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 12 */
+/* 10 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -770,7 +758,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 13 */
+/* 11 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1074,7 +1062,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 14 */
+/* 12 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1155,7 +1143,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 15 */
+/* 13 */
 /***/ function(module, exports) {
 
 	'use strict';
