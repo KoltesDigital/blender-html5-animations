@@ -5,13 +5,13 @@
  */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("glMatrix"));
+		module.exports = factory(require("window"));
 	else if(typeof define === 'function' && define.amd)
-		define(["glMatrix"], factory);
-	else {
-		var a = typeof exports === 'object' ? factory(require("glMatrix")) : factory(root["glMatrix"]);
-		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
-	}
+		define(["window"], factory);
+	else if(typeof exports === 'object')
+		exports["blenderHTML5Animations"] = factory(require("window"));
+	else
+		root["blenderHTML5Animations"] = factory(root["window"]);
 })(this, function(__WEBPACK_EXTERNAL_MODULE_7__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -227,9 +227,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var glMatrix = __webpack_require__(7);
-	var mat4 = glMatrix.mat4;
-	var vec3 = glMatrix.vec3;
+	var glMatrixLib = __webpack_require__(7);
+
+	var glMatrix = glMatrixLib.glMatrix;
+	var mat4 = glMatrixLib.mat4;
+	var vec3 = glMatrixLib.vec3;
 
 	var FCurveArray = __webpack_require__(8);
 	var Marker = __webpack_require__(13);
@@ -324,6 +326,15 @@ return /******/ (function(modules) { // webpackBootstrap
 		mat4.translate(out, out, location);
 
 		switch (rotationMode) {
+			case RotationMode.QUATERNION:
+				[paths.rotation_quaternion, paths.delta_rotation_quaternion].forEach(function(path) {
+					if (path) {
+						mat4.fromQuat(qmat, path.evaluate(time, FCurveArray.DefaultValues.ROTATION_QUATERNION));
+						mat4.multiply(out, out, qmat);
+					}
+				});
+				break;
+
 			case RotationMode.EULER_XYZ:
 				computeEulerAngles();
 				mat4.rotateZ(out, out, angles[2]);
@@ -372,15 +383,6 @@ return /******/ (function(modules) { // webpackBootstrap
 					var vec = paths.rotation_axis.evaluate(time, FCurveArray.DefaultValues.ROTATION);
 					mat4.rotate(out, out, vec[3], vec);
 				}
-				break;
-
-			case RotationMode.QUATERNION:
-				[paths.rotation_quaternion, paths.delta_rotation_quaternion].forEach(function(path) {
-					if (path) {
-						mat4.fromQuat(qmat, path.evaluate(time, FCurveArray.DefaultValues.ROTATION_QUATERNION));
-						mat4.multiply(out, out, qmat);
-					}
-				});
 				break;
 		}
 
