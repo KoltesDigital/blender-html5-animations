@@ -37,3 +37,9 @@ var myActionLibrary = new blenderHTML5Animations.ActionLibrary(exportedData);
 
 var value = myActionLibrary['my-action'].paths['location'].evaluate(time, blenderHTML5Animations.FCurveArray.DefaultValues.LOCATION);
 ```
+
+## License
+
+Copyright 2016 Jonathan Giroux
+
+[MIT licence](https://opensource.org/licenses/MIT)

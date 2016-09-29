@@ -18,3 +18,9 @@ To automatically enable the add-on at program start-up, enable it and click on *
 Click on **File** > **Export** > **HTML5 Animations**.
 
 The add-on exports all actions. For each action, it exports the fcurves and the pose markers.
+
+## License
+
+Copyright 2016 Jonathan Giroux
+
+[MIT License](https://opensource.org/licenses/MIT)
