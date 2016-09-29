@@ -1,5 +1,5 @@
 /**
- * Blender HTML5 Animations
+ * Blender HTML5 Animations 1.0.0
  * Copyright 2016 Jonathan Giroux
  * MIT licence
  */
