@@ -8,7 +8,6 @@ var vec3 = glMatrixLib.vec3;
 
 var FCurveArray = require('./FCurveArray');
 var Marker = require('./Marker');
-var RotationMode = require('./enums/RotationMode');
 
 /**
  * @class An Action describes a keyframed animation.
@@ -56,6 +55,32 @@ function Action(data) {
 	}) : [];
 }
 
+// POSE_OT_rotation_mode_set
+
+/**
+ * Object rotation modes.
+ * @enum {number}
+ * @readonly
+*/
+Action.RotationMode = {
+	/** Reads from rotation_quaternion and delta_rotation_quaternion paths. */
+	QUATERNION: 0,
+	/** Reads from rotation_euler and delta_rotation_euler paths. */
+	EULER_XYZ: 1,
+	/** Reads from rotation_euler and delta_rotation_euler paths. */
+	EULER_YXZ: 3,
+	/** Reads from rotation_euler and delta_rotation_euler paths. */
+	EULER_XZY: 2,
+	/** Reads from rotation_euler and delta_rotation_euler paths. */
+	EULER_ZXY: 5,
+	/** Reads from rotation_euler and delta_rotation_euler paths. */
+	EULER_YZX: 4,
+	/** Reads from rotation_euler and delta_rotation_euler paths. */
+	EULER_ZYX: 6,
+	/** Reads from rotation_axis path. */
+	AXIS_ANGLE: -1,
+};
+
 /**
  * Calls a function for each marker in a time range.
  * @param {number} startTime Included start time
@@ -75,7 +100,7 @@ var qmat = new glMatrix.ARRAY_TYPE(16);
  * Computes the local to world matrix.
  * @param {mat4} out Receiving matrix
  * @param {number} time Evaluation time
- * @param {number} rotationMode Rotation mode
+ * @param {Action.RotationMode} rotationMode Rotation mode
  */
 Action.prototype.toWorld = function(out, time, rotationMode) {
 	mat4.identity(out);
@@ -99,7 +124,7 @@ Action.prototype.toWorld = function(out, time, rotationMode) {
 	mat4.translate(out, out, location);
 
 	switch (rotationMode) {
-		case RotationMode.QUATERNION:
+		case Action.RotationMode.QUATERNION:
 			[paths.rotation_quaternion, paths.delta_rotation_quaternion].forEach(function(path) {
 				if (path) {
 					mat4.fromQuat(qmat, path.evaluate(time, FCurveArray.DefaultValues.ROTATION_QUATERNION));
@@ -108,49 +133,49 @@ Action.prototype.toWorld = function(out, time, rotationMode) {
 			});
 			break;
 
-		case RotationMode.EULER_XYZ:
+		case Action.RotationMode.EULER_XYZ:
 			computeEulerAngles();
 			mat4.rotateZ(out, out, angles[2]);
 			mat4.rotateY(out, out, angles[1]);
 			mat4.rotateX(out, out, angles[0]);
 			break;
 
-		case RotationMode.EULER_XZY:
+		case Action.RotationMode.EULER_XZY:
 			computeEulerAngles();
 			mat4.rotateY(out, out, angles[1]);
 			mat4.rotateZ(out, out, angles[2]);
 			mat4.rotateX(out, out, angles[0]);
 			break;
 
-		case RotationMode.EULER_YXZ:
+		case Action.RotationMode.EULER_YXZ:
 			computeEulerAngles();
 			mat4.rotateZ(out, out, angles[2]);
 			mat4.rotateX(out, out, angles[0]);
 			mat4.rotateY(out, out, angles[1]);
 			break;
 
-		case RotationMode.EULER_YZX:
+		case Action.RotationMode.EULER_YZX:
 			computeEulerAngles();
 			mat4.rotateX(out, out, angles[0]);
 			mat4.rotateZ(out, out, angles[2]);
 			mat4.rotateY(out, out, angles[1]);
 			break;
 
-		case RotationMode.EULER_ZXY:
+		case Action.RotationMode.EULER_ZXY:
 			computeEulerAngles();
 			mat4.rotateY(out, out, angles[1]);
 			mat4.rotateX(out, out, angles[0]);
 			mat4.rotateZ(out, out, angles[2]);
 			break;
 
-		case RotationMode.EULER_ZYX:
+		case Action.RotationMode.EULER_ZYX:
 			computeEulerAngles();
 			mat4.rotateX(out, out, angles[0]);
 			mat4.rotateY(out, out, angles[1]);
 			mat4.rotateZ(out, out, angles[2]);
 			break;
 
-		case RotationMode.AXIS_ANGLE:
+		case Action.RotationMode.AXIS_ANGLE:
 			// no delta
 			if (paths.rotation_axis) {
 				var vec = paths.rotation_axis.evaluate(time, FCurveArray.DefaultValues.ROTATION);
@@ -173,7 +198,7 @@ Action.prototype.toWorld = function(out, time, rotationMode) {
  * Computes the world to local matrix.
  * @param {mat4} out Receiving matrix
  * @param {number} time Evaluation time
- * @param {number} rotationMode Rotation mode
+ * @param {Action.RotationMode} rotationMode Rotation mode
  */
 Action.prototype.toLocal = function(out, time, rotationMode) {
 	this.toWorld(out, time, rotationMode);
@@ -185,7 +210,7 @@ Action.prototype.toLocal = function(out, time, rotationMode) {
  * Applies a CSS3 Transform.
  * @param {element} element Receiving element
  * @param {number} time Evaluation time
- * @param {number} rotationMode Rotation mode
+ * @param {Action.RotationMode} rotationMode Rotation mode
  */
 Action.prototype.setElementTransform = function(element, time, rotationMode) {
 	var mat = new glMatrix.ARRAY_TYPE(16);

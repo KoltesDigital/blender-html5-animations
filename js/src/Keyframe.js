@@ -43,13 +43,13 @@ function Keyframe(data) {
 
 	/**
 	 * Interpolation type.
-	 * @member {Interpolation}
+	 * @member {Keyframe.Interpolation}
 	 */
 	this.interpolation = data[6];
 
 	/**
 	 * Easing type.
-	 * @member {Easing}
+	 * @member {Keyframe.Easing}
 	 */
 	this.easing = data[7];
 
@@ -71,5 +71,59 @@ function Keyframe(data) {
 	 */
 	this.period = data[9];
 }
+
+// GRAPH_OT_easing_type
+
+/**
+ * FCurve easing types.
+ * @enum {number}
+ * @readonly
+*/
+Keyframe.Easing = {
+	/** Automatic easing. */
+	AUTO: 0,
+	/** Starts slow. */
+	IN: 1,
+	/** Ends slow. */
+	OUT: 2,
+	/** Starts and ends slow. */
+	IN_OUT: 3,
+};
+
+// GRAPH_OT_interpolation_type
+
+/**
+ * FCurve interpolation types, between two keyframes.
+ * @enum {number}
+ * @readonly
+*/
+Keyframe.Interpolation = {
+	/** No interpolation, value gets held. */
+	CONSTANT: 0,
+	/** Straight-line interpolation. */
+	LINEAR: 1,
+	/** Smooth interpolation. */
+	BEZIER: 2,
+	/** Cubic easing with overshoot and settle. */
+	BACK: 3,
+	/** Exponentially decaying parabolic bounce. */
+	BOUNCE: 4,
+	/** Circular easing. */
+	CIRCULAR: 5,
+	/** Cubic easing. */
+	CUBIC: 6,
+	/** Exponentially decaying sine wave. */
+	ELASTIC: 7,
+	/** Exponential easing. */
+	EXPONENTIAL: 8,
+	/** Quadratic easing. */
+	QUADRATIC: 9,
+	/** Quartic easing. */
+	QUARTIC: 10,
+	/** Quintic easing. */
+	QUINTIC: 11,
+	/** Sinusoidal easing. */
+	SINUSOIDAL: 12,
+};
 
 module.exports = Keyframe;
