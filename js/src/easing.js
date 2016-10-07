@@ -254,11 +254,11 @@ function quinticEaseInOut(time, begin, change, duration) {
 }
 
 function sinusoidalEaseIn(time, begin, change, duration) {
-	return -change * Math.cos(time / duration * Math.PI_2) + change + begin;
+	return -change * Math.cos(time / duration * Math.PI / 2) + change + begin;
 }
 
 function sinusoidalEaseOut(time, begin, change, duration) {
-	return change * Math.sin(time / duration * Math.PI_2) + begin;
+	return change * Math.sin(time / duration * Math.PI / 2) + begin;
 }
 
 function sinusoidalEaseInOut(time, begin, change, duration) {
