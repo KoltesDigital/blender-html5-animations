@@ -5,7 +5,7 @@
 bl_info = {
     "name": "HTML5 Animations",
     "author": "Jonathan Giroux",
-    "version": (0, 1, 0),
+    "version": (1, 0, 1),
     "blender": (2, 70, 0),
     "location": "File > Export > HTML5 Animations",
     "description": "Export animation curves as CSS, JS, or JSON.",

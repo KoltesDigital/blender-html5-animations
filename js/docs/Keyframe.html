@@ -179,6 +179,599 @@
 
         
             
+<h4 class="name" id=".Easing"><span class="type-signature">(static, readonly) </span>Easing<span class="type-signature"> :number</span></h4>
+
+
+
+
+<div class="description">
+    FCurve easing types.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">number</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>AUTO</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Automatic easing.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>IN</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Starts slow.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>OUT</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Ends slow.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>IN_OUT</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Starts and ends slow.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Keyframe.js.html">Keyframe.js</a>, <a href="Keyframe.js.html#line82">line 82</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".Interpolation"><span class="type-signature">(static, readonly) </span>Interpolation<span class="type-signature"> :number</span></h4>
+
+
+
+
+<div class="description">
+    FCurve interpolation types, between two keyframes.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">number</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>CONSTANT</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">No interpolation, value gets held.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>LINEAR</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Straight-line interpolation.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>BEZIER</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Smooth interpolation.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>BACK</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Cubic easing with overshoot and settle.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>BOUNCE</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Exponentially decaying parabolic bounce.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>CIRCULAR</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Circular easing.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>CUBIC</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Cubic easing.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>ELASTIC</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Exponentially decaying sine wave.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>EXPONENTIAL</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Exponential easing.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>QUADRATIC</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Quadratic easing.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>QUARTIC</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Quartic easing.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>QUINTIC</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Quintic easing.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>SINUSOIDAL</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Sinusoidal easing.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Keyframe.js.html">Keyframe.js</a>, <a href="Keyframe.js.html#line100">line 100</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
 <h4 class="name" id="amplitude"><span class="type-signature"></span>amplitude<span class="type-signature"> :number</span></h4>
 
 
@@ -251,7 +844,7 @@
 
         
             
-<h4 class="name" id="easing"><span class="type-signature"></span>easing<span class="type-signature"> :<a href="global.html#Easing">Easing</a></span></h4>
+<h4 class="name" id="easing"><span class="type-signature"></span>easing<span class="type-signature"> :<a href="Keyframe.html#.Easing">Keyframe.Easing</a></span></h4>
 
 
 
@@ -266,7 +859,7 @@
     <ul>
         <li>
             
-<span class="param-type"><a href="global.html#Easing">Easing</a></span>
+<span class="param-type"><a href="Keyframe.html#.Easing">Keyframe.Easing</a></span>
 
 
         </li>
@@ -323,7 +916,7 @@
 
         
             
-<h4 class="name" id="interpolation"><span class="type-signature"></span>interpolation<span class="type-signature"> :<a href="global.html#Interpolation">Interpolation</a></span></h4>
+<h4 class="name" id="interpolation"><span class="type-signature"></span>interpolation<span class="type-signature"> :<a href="Keyframe.html#.Interpolation">Keyframe.Interpolation</a></span></h4>
 
 
 
@@ -338,7 +931,7 @@
     <ul>
         <li>
             
-<span class="param-type"><a href="global.html#Interpolation">Interpolation</a></span>
+<span class="param-type"><a href="Keyframe.html#.Interpolation">Keyframe.Interpolation</a></span>
 
 
         </li>
@@ -987,13 +1580,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Action.html">Action</a></li><li><a href="ActionLibrary.html">ActionLibrary</a></li><li><a href="FCurve.html">FCurve</a></li><li><a href="FCurveArray.html">FCurveArray</a></li><li><a href="Keyframe.html">Keyframe</a></li><li><a href="Marker.html">Marker</a></li></ul><h3>Global</h3><ul><li><a href="global.html#Easing">Easing</a></li><li><a href="global.html#Extrapolation">Extrapolation</a></li><li><a href="global.html#Interpolation">Interpolation</a></li><li><a href="global.html#RotationMode">RotationMode</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Action.html">Action</a></li><li><a href="ActionLibrary.html">ActionLibrary</a></li><li><a href="FCurve.html">FCurve</a></li><li><a href="FCurveArray.html">FCurveArray</a></li><li><a href="Keyframe.html">Keyframe</a></li><li><a href="Marker.html">Marker</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Sun Jul 24 2016 14:31:11 GMT+0200 (Romance Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Mon Jan 16 2017 15:05:12 GMT+0100 (Romance Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

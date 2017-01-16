@@ -1,5 +1,5 @@
 /**
- * Blender HTML5 Animations 1.0.0
+ * Blender HTML5 Animations 1.0.1
  * Copyright 2016 Jonathan Giroux
  * MIT licence
  */
@@ -12,7 +12,7 @@
 		exports["blenderHTML5Animations"] = factory(require("window"));
 	else
 		root["blenderHTML5Animations"] = factory(root["window"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE_7__) {
+})(this, function(__WEBPACK_EXTERNAL_MODULE_2__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -61,181 +61,28 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	module.exports.Easing = __webpack_require__(1);
-	module.exports.Extrapolation = __webpack_require__(2);
-	module.exports.Interpolation = __webpack_require__(3);
-	module.exports.RotationMode = __webpack_require__(4);
-
-	module.exports.ActionLibrary = __webpack_require__(5);
-	module.exports.FCurveArray = __webpack_require__(8);
+	module.exports.Action = __webpack_require__(1);
+	module.exports.ActionLibrary = __webpack_require__(9);
+	module.exports.FCurve = __webpack_require__(4);
+	module.exports.FCurveArray = __webpack_require__(3);
+	module.exports.Keyframe = __webpack_require__(7);
+	module.exports.Marker = __webpack_require__(8);
 
 
 /***/ },
 /* 1 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	// GRAPH_OT_easing_type
-
-	/**
-	 * FCurve easing types.
-	 * @enum {number}
-	 * @readonly
-	*/
-	var Easing = {
-		/** Automatic easing. */
-		AUTO: 0,
-		/** Starts slow. */
-		IN: 1,
-		/** Ends slow. */
-		OUT: 2,
-		/** Starts and ends slow. */
-		IN_OUT: 3,
-	};
-
-	module.exports = Easing;
-
-
-/***/ },
-/* 2 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	// GRAPH_OT_extrapolation_type
-
-	/**
-	 * FCurve extrapolation types, before its first keyframe and after its last keyframe.
-	 * @enum {number}
-	 * @readonly
-	*/
-	var Extrapolation = {
-		/** Keeps a constant value. */
-		CONSTANT: 0,
-		/** Continues as straight lines. */
-		LINEAR: 1,
-	};
-
-	module.exports = Extrapolation;
-
-
-/***/ },
-/* 3 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	// GRAPH_OT_interpolation_type
-
-	/**
-	 * FCurve interpolation types, between two keyframes.
-	 * @enum {number}
-	 * @readonly
-	*/
-	var Interpolation = {
-		/** No interpolation, value gets held. */
-		CONSTANT: 0,
-		/** Straight-line interpolation. */
-		LINEAR: 1,
-		/** Smooth interpolation. */
-		BEZIER: 2,
-		/** Cubic easing with overshoot and settle. */
-		BACK: 3,
-		/** Exponentially decaying parabolic bounce. */
-		BOUNCE: 4,
-		/** Circular easing. */
-		CIRCULAR: 5,
-		/** Cubic easing. */
-		CUBIC: 6,
-		/** Exponentially decaying sine wave. */
-		ELASTIC: 7,
-		/** Exponential easing. */
-		EXPONENTIAL: 8,
-		/** Quadratic easing. */
-		QUADRATIC: 9,
-		/** Quartic easing. */
-		QUARTIC: 10,
-		/** Quintic easing. */
-		QUINTIC: 11,
-		/** Sinusoidal easing. */
-		SINUSOIDAL: 12,
-	};
-
-	module.exports = Interpolation;
-
-
-/***/ },
-/* 4 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	// POSE_OT_rotation_mode_set
-
-	/**
-	 * Object rotation modes.
-	 * @enum {number}
-	 * @readonly
-	*/
-	var RotationMode = {
-		/** Reads from rotation_quaternion and delta_rotation_quaternion paths. */
-		QUATERNION: 0,
-		/** Reads from rotation_euler and delta_rotation_euler paths. */
-		EULER_XYZ: 1,
-		/** Reads from rotation_euler and delta_rotation_euler paths. */
-		EULER_YXZ: 3,
-		/** Reads from rotation_euler and delta_rotation_euler paths. */
-		EULER_XZY: 2,
-		/** Reads from rotation_euler and delta_rotation_euler paths. */
-		EULER_ZXY: 5,
-		/** Reads from rotation_euler and delta_rotation_euler paths. */
-		EULER_YZX: 4,
-		/** Reads from rotation_euler and delta_rotation_euler paths. */
-		EULER_ZYX: 6,
-		/** Reads from rotation_axis path. */
-		AXIS_ANGLE: -1,
-	};
-
-	module.exports = RotationMode;
-
-
-/***/ },
-/* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var Action = __webpack_require__(6);
-
-	/**
-	 * @class An ActionLibrary is an object of Actions.
-	 * @param data Data from Blender.
-	 */
-	function ActionLibrary(data) {
-		for (var actionName in data) {
-			this[actionName] = new Action(data[actionName]);
-		}
-	}
-
-	module.exports = ActionLibrary;
-
-
-/***/ },
-/* 6 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var glMatrixLib = __webpack_require__(7);
+	var glMatrixLib = __webpack_require__(2);
 
 	var glMatrix = glMatrixLib.glMatrix;
 	var mat4 = glMatrixLib.mat4;
 	var vec3 = glMatrixLib.vec3;
 
-	var FCurveArray = __webpack_require__(8);
-	var Marker = __webpack_require__(13);
-	var RotationMode = __webpack_require__(4);
+	var FCurveArray = __webpack_require__(3);
+	var Marker = __webpack_require__(8);
 
 	/**
 	 * @class An Action describes a keyframed animation.
@@ -283,6 +130,32 @@ return /******/ (function(modules) { // webpackBootstrap
 		}) : [];
 	}
 
+	// POSE_OT_rotation_mode_set
+
+	/**
+	 * Object rotation modes.
+	 * @enum {number}
+	 * @readonly
+	*/
+	Action.RotationMode = {
+		/** Reads from rotation_quaternion and delta_rotation_quaternion paths. */
+		QUATERNION: 0,
+		/** Reads from rotation_euler and delta_rotation_euler paths. */
+		EULER_XYZ: 1,
+		/** Reads from rotation_euler and delta_rotation_euler paths. */
+		EULER_YXZ: 3,
+		/** Reads from rotation_euler and delta_rotation_euler paths. */
+		EULER_XZY: 2,
+		/** Reads from rotation_euler and delta_rotation_euler paths. */
+		EULER_ZXY: 5,
+		/** Reads from rotation_euler and delta_rotation_euler paths. */
+		EULER_YZX: 4,
+		/** Reads from rotation_euler and delta_rotation_euler paths. */
+		EULER_ZYX: 6,
+		/** Reads from rotation_axis path. */
+		AXIS_ANGLE: -1,
+	};
+
 	/**
 	 * Calls a function for each marker in a time range.
 	 * @param {number} startTime Included start time
@@ -302,7 +175,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * Computes the local to world matrix.
 	 * @param {mat4} out Receiving matrix
 	 * @param {number} time Evaluation time
-	 * @param {number} rotationMode Rotation mode
+	 * @param {Action.RotationMode} rotationMode Rotation mode
 	 */
 	Action.prototype.toWorld = function(out, time, rotationMode) {
 		mat4.identity(out);
@@ -326,7 +199,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		mat4.translate(out, out, location);
 
 		switch (rotationMode) {
-			case RotationMode.QUATERNION:
+			case Action.RotationMode.QUATERNION:
 				[paths.rotation_quaternion, paths.delta_rotation_quaternion].forEach(function(path) {
 					if (path) {
 						mat4.fromQuat(qmat, path.evaluate(time, FCurveArray.DefaultValues.ROTATION_QUATERNION));
@@ -335,49 +208,49 @@ return /******/ (function(modules) { // webpackBootstrap
 				});
 				break;
 
-			case RotationMode.EULER_XYZ:
+			case Action.RotationMode.EULER_XYZ:
 				computeEulerAngles();
 				mat4.rotateZ(out, out, angles[2]);
 				mat4.rotateY(out, out, angles[1]);
 				mat4.rotateX(out, out, angles[0]);
 				break;
 
-			case RotationMode.EULER_XZY:
+			case Action.RotationMode.EULER_XZY:
 				computeEulerAngles();
 				mat4.rotateY(out, out, angles[1]);
 				mat4.rotateZ(out, out, angles[2]);
 				mat4.rotateX(out, out, angles[0]);
 				break;
 
-			case RotationMode.EULER_YXZ:
+			case Action.RotationMode.EULER_YXZ:
 				computeEulerAngles();
 				mat4.rotateZ(out, out, angles[2]);
 				mat4.rotateX(out, out, angles[0]);
 				mat4.rotateY(out, out, angles[1]);
 				break;
 
-			case RotationMode.EULER_YZX:
+			case Action.RotationMode.EULER_YZX:
 				computeEulerAngles();
 				mat4.rotateX(out, out, angles[0]);
 				mat4.rotateZ(out, out, angles[2]);
 				mat4.rotateY(out, out, angles[1]);
 				break;
 
-			case RotationMode.EULER_ZXY:
+			case Action.RotationMode.EULER_ZXY:
 				computeEulerAngles();
 				mat4.rotateY(out, out, angles[1]);
 				mat4.rotateX(out, out, angles[0]);
 				mat4.rotateZ(out, out, angles[2]);
 				break;
 
-			case RotationMode.EULER_ZYX:
+			case Action.RotationMode.EULER_ZYX:
 				computeEulerAngles();
 				mat4.rotateX(out, out, angles[0]);
 				mat4.rotateY(out, out, angles[1]);
 				mat4.rotateZ(out, out, angles[2]);
 				break;
 
-			case RotationMode.AXIS_ANGLE:
+			case Action.RotationMode.AXIS_ANGLE:
 				// no delta
 				if (paths.rotation_axis) {
 					var vec = paths.rotation_axis.evaluate(time, FCurveArray.DefaultValues.ROTATION);
@@ -400,7 +273,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * Computes the world to local matrix.
 	 * @param {mat4} out Receiving matrix
 	 * @param {number} time Evaluation time
-	 * @param {number} rotationMode Rotation mode
+	 * @param {Action.RotationMode} rotationMode Rotation mode
 	 */
 	Action.prototype.toLocal = function(out, time, rotationMode) {
 		this.toWorld(out, time, rotationMode);
@@ -412,7 +285,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * Applies a CSS3 Transform.
 	 * @param {element} element Receiving element
 	 * @param {number} time Evaluation time
-	 * @param {number} rotationMode Rotation mode
+	 * @param {Action.RotationMode} rotationMode Rotation mode
 	 */
 	Action.prototype.setElementTransform = function(element, time, rotationMode) {
 		var mat = new glMatrix.ARRAY_TYPE(16);
@@ -429,18 +302,18 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 7 */
+/* 2 */
 /***/ function(module, exports) {
 
-	module.exports = __WEBPACK_EXTERNAL_MODULE_7__;
+	module.exports = __WEBPACK_EXTERNAL_MODULE_2__;
 
 /***/ },
-/* 8 */
+/* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var FCurve = __webpack_require__(9);
+	var FCurve = __webpack_require__(4);
 	/**
 	 * Provides a value when a FCurve does not exist.
 	 * @callback FCurveArray~DefaultValues
@@ -502,17 +375,14 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 9 */
+/* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var bezier = __webpack_require__(10);
-	var easing = __webpack_require__(11);
-	var Easing = __webpack_require__(1);
-	var Extrapolation = __webpack_require__(2);
-	var Interpolation = __webpack_require__(3);
-	var Keyframe = __webpack_require__(12);
+	var bezier = __webpack_require__(5);
+	var easing = __webpack_require__(6);
+	var Keyframe = __webpack_require__(7);
 
 	/**
 	 * @class A FCurveArray is an array of FCurves.
@@ -529,9 +399,33 @@ return /******/ (function(modules) { // webpackBootstrap
 
 		/**
 		 * Extrapolation type.
-		 * @member {Extrapolation}
+		 * @member {FCurve.Extrapolation}
 		 */
 		this.extrapolation = data[1];
+	}
+
+	// GRAPH_OT_extrapolation_type
+
+	/**
+	 * FCurve extrapolation types, before its first keyframe and after its last keyframe.
+	 * @enum {number}
+	 * @readonly
+	*/
+	FCurve.Extrapolation = {
+		/** Keeps a constant value. */
+		CONSTANT: 0,
+		/** Continues as straight lines. */
+		LINEAR: 1,
+	};
+
+	/**
+	 * When evaluation time differs less than epsilon from a keyframe, snaps to that keyframe.
+	 * @type {number}
+	 */
+	FCurve.evaluationTimeEpsilon = 0.0001;
+
+	function areTimesAlmostEqual(t1, t2) {
+		return Math.abs(t1 - t2) <= FCurve.evaluationEpsilon;
 	}
 
 	/**
@@ -543,9 +437,14 @@ return /******/ (function(modules) { // webpackBootstrap
 		var leftIndex = 0;
 		var leftKeyframe = this.keyframes[leftIndex];
 
+		if (areTimesAlmostEqual(time, leftKeyframe.time))
+		{
+			return leftKeyframe.value;
+		}
+
 		if (time <= leftKeyframe.time) {
 			switch (this.extrapolation) {
-				case Extrapolation.LINEAR:
+				case FCurve.Extrapolation.LINEAR:
 					return leftKeyframe.value + (leftKeyframe.leftValue - leftKeyframe.value) * (time - leftKeyframe.time) / (leftKeyframe.leftTime - leftKeyframe.time);
 				default:
 					return leftKeyframe.value;
@@ -554,9 +453,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 		var rightIndex = this.keyframes.length - 1;
 		var rightKeyframe = this.keyframes[rightIndex];
+
+		if (areTimesAlmostEqual(time, rightKeyframe.time))
+		{
+			return rightKeyframe.value;
+		}
+
 		if (time >= rightKeyframe.time) {
 			switch (this.extrapolation) {
-				case Extrapolation.LINEAR:
+				case FCurve.Extrapolation.LINEAR:
 					return rightKeyframe.value + (rightKeyframe.rightValue - rightKeyframe.value) * (time - rightKeyframe.time) / (rightKeyframe.rightTime - rightKeyframe.time);
 				default:
 					return rightKeyframe.value;
@@ -572,7 +477,16 @@ return /******/ (function(modules) { // webpackBootstrap
 		}
 
 		leftKeyframe = this.keyframes[leftIndex];
+		if (areTimesAlmostEqual(time, leftKeyframe.time))
+		{
+			return leftKeyframe.value;
+		}
+
 		rightKeyframe = this.keyframes[rightIndex];
+		if (areTimesAlmostEqual(time, rightKeyframe.time))
+		{
+			return rightKeyframe.value;
+		}
 
 		var relTime = time - leftKeyframe.time;
 		var begin = leftKeyframe.value;
@@ -580,116 +494,116 @@ return /******/ (function(modules) { // webpackBootstrap
 		var change = rightKeyframe.value - leftKeyframe.value;
 
 		switch (leftKeyframe.interpolation) {
-			case Interpolation.BACK:
+			case Keyframe.Interpolation.BACK:
 				switch (leftKeyframe.easing) {
-					case Easing.IN:
+					case Keyframe.Easing.IN:
 						return easing.backEaseIn(relTime, begin, change, duration, leftKeyframe.overshoot);
-					case Easing.IN_OUT:
+					case Keyframe.Easing.IN_OUT:
 						return easing.backEaseInOut(relTime, begin, change, duration, leftKeyframe.overshoot);
 					default:
 						return easing.backEaseOut(relTime, begin, change, duration, leftKeyframe.overshoot);
 				}
 				break;
 
-			case Interpolation.BEZIER:
+			case Keyframe.Interpolation.BEZIER:
 				return bezier(time, leftKeyframe, rightKeyframe);
 
-			case Interpolation.BOUNCE:
+			case Keyframe.Interpolation.BOUNCE:
 				switch (leftKeyframe.easing) {
-					case Easing.IN:
+					case Keyframe.Easing.IN:
 						return easing.bounceEaseIn(relTime, begin, change, duration);
-					case Easing.IN_OUT:
+					case Keyframe.Easing.IN_OUT:
 						return easing.bounceEaseInOut(relTime, begin, change, duration);
 					default:
 						return easing.bounceEaseOut(relTime, begin, change, duration);
 				}
 				break;
 
-			case Interpolation.CIRCULAR:
+			case Keyframe.Interpolation.CIRCULAR:
 				switch (leftKeyframe.easing) {
-					case Easing.OUT:
+					case Keyframe.Easing.OUT:
 						return easing.circularEaseOut(relTime, begin, change, duration);
-					case Easing.IN_OUT:
+					case Keyframe.Easing.IN_OUT:
 						return easing.circularEaseInOut(relTime, begin, change, duration);
 					default:
 						return easing.circularEaseIn(relTime, begin, change, duration);
 				}
 				break;
 
-			case Interpolation.CUBIC:
+			case Keyframe.Interpolation.CUBIC:
 				switch (leftKeyframe.easing) {
-					case Easing.OUT:
+					case Keyframe.Easing.OUT:
 						return easing.cubicEaseOut(relTime, begin, change, duration);
-					case Easing.IN_OUT:
+					case Keyframe.Easing.IN_OUT:
 						return easing.cubicEaseInOut(relTime, begin, change, duration);
 					default:
 						return easing.cubicEaseIn(relTime, begin, change, duration);
 				}
 				break;
 
-			case Interpolation.ELASTIC:
+			case Keyframe.Interpolation.ELASTIC:
 				switch (leftKeyframe.easing) {
-					case Easing.IN:
+					case Keyframe.Easing.IN:
 						return easing.elasticEaseIn(relTime, begin, change, duration);
-					case Easing.IN_OUT:
+					case Keyframe.Easing.IN_OUT:
 						return easing.elasticEaseInOut(relTime, begin, change, duration);
 					default:
 						return easing.elasticEaseOut(relTime, begin, change, duration, leftKeyframe.amplitude, leftKeyframe.period);
 				}
 				break;
 
-			case Interpolation.EXPONENTIAL:
+			case Keyframe.Interpolation.EXPONENTIAL:
 				switch (leftKeyframe.easing) {
-					case Easing.OUT:
+					case Keyframe.Easing.OUT:
 						return easing.exponentialEaseOut(relTime, begin, change, duration);
-					case Easing.IN_OUT:
+					case Keyframe.Keyframe.Easing.IN_OUT:
 						return easing.exponentialEaseInOut(relTime, begin, change, duration);
 					default:
 						return easing.exponentialEaseIn(relTime, begin, change, duration);
 				}
 				break;
 
-			case Interpolation.LINEAR:
+			case Keyframe.Interpolation.LINEAR:
 				return easing.linear(relTime, begin, change, duration);
 
-			case Interpolation.QUADRATIC:
+			case Keyframe.Interpolation.QUADRATIC:
 				switch (leftKeyframe.easing) {
-					case Easing.OUT:
+					case Keyframe.Easing.OUT:
 						return easing.quadraticEaseOut(relTime, begin, change, duration);
-					case Easing.IN_OUT:
+					case Keyframe.Easing.IN_OUT:
 						return easing.quadraticEaseInOut(relTime, begin, change, duration);
 					default:
 						return easing.quadraticEaseIn(relTime, begin, change, duration);
 				}
 				break;
 
-			case Interpolation.QUARTIC:
+			case Keyframe.Interpolation.QUARTIC:
 				switch (leftKeyframe.easing) {
-					case Easing.OUT:
+					case Keyframe.Easing.OUT:
 						return easing.quarticEaseOut(relTime, begin, change, duration);
-					case Easing.IN_OUT:
+					case Keyframe.Easing.IN_OUT:
 						return easing.quarticEaseInOut(relTime, begin, change, duration);
 					default:
 						return easing.quarticEaseIn(relTime, begin, change, duration);
 				}
 				break;
 
-			case Interpolation.QUINTIC:
+			case Keyframe.Interpolation.QUINTIC:
 				switch (leftKeyframe.easing) {
-					case Easing.OUT:
+					case Keyframe.Easing.OUT:
 						return easing.quinticEaseOut(relTime, begin, change, duration);
-					case Easing.IN_OUT:
+					case Keyframe.Easing.IN_OUT:
 						return easing.quinticEaseInOut(relTime, begin, change, duration);
 					default:
 						return easing.quinticEaseIn(relTime, begin, change, duration);
 				}
 				break;
 
-			case Interpolation.SINUSOIDAL:
+			case Keyframe.Interpolation.SINUSOIDAL:
 				switch (leftKeyframe.easing) {
-					case Easing.OUT:
+					case Keyframe.Easing.OUT:
 						return easing.sinusoidalEaseOut(relTime, begin, change, duration);
-					case Easing.IN_OUT:
+					case Keyframe.Easing.IN_OUT:
 						return easing.sinusoidalEaseInOut(relTime, begin, change, duration);
 					default:
 						return easing.sinusoidalEaseIn(relTime, begin, change, duration);
@@ -705,7 +619,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 10 */
+/* 5 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -760,7 +674,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 11 */
+/* 6 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1019,11 +933,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	function sinusoidalEaseIn(time, begin, change, duration) {
-		return -change * Math.cos(time / duration * Math.PI_2) + change + begin;
+		return -change * Math.cos(time / duration * Math.PI / 2) + change + begin;
 	}
 
 	function sinusoidalEaseOut(time, begin, change, duration) {
-		return change * Math.sin(time / duration * Math.PI_2) + begin;
+		return change * Math.sin(time / duration * Math.PI / 2) + begin;
 	}
 
 	function sinusoidalEaseInOut(time, begin, change, duration) {
@@ -1064,7 +978,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 12 */
+/* 7 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1112,13 +1026,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 		/**
 		 * Interpolation type.
-		 * @member {Interpolation}
+		 * @member {Keyframe.Interpolation}
 		 */
 		this.interpolation = data[6];
 
 		/**
 		 * Easing type.
-		 * @member {Easing}
+		 * @member {Keyframe.Easing}
 		 */
 		this.easing = data[7];
 
@@ -1141,11 +1055,65 @@ return /******/ (function(modules) { // webpackBootstrap
 		this.period = data[9];
 	}
 
+	// GRAPH_OT_easing_type
+
+	/**
+	 * FCurve easing types.
+	 * @enum {number}
+	 * @readonly
+	*/
+	Keyframe.Easing = {
+		/** Automatic easing. */
+		AUTO: 0,
+		/** Starts slow. */
+		IN: 1,
+		/** Ends slow. */
+		OUT: 2,
+		/** Starts and ends slow. */
+		IN_OUT: 3,
+	};
+
+	// GRAPH_OT_interpolation_type
+
+	/**
+	 * FCurve interpolation types, between two keyframes.
+	 * @enum {number}
+	 * @readonly
+	*/
+	Keyframe.Interpolation = {
+		/** No interpolation, value gets held. */
+		CONSTANT: 0,
+		/** Straight-line interpolation. */
+		LINEAR: 1,
+		/** Smooth interpolation. */
+		BEZIER: 2,
+		/** Cubic easing with overshoot and settle. */
+		BACK: 3,
+		/** Exponentially decaying parabolic bounce. */
+		BOUNCE: 4,
+		/** Circular easing. */
+		CIRCULAR: 5,
+		/** Cubic easing. */
+		CUBIC: 6,
+		/** Exponentially decaying sine wave. */
+		ELASTIC: 7,
+		/** Exponential easing. */
+		EXPONENTIAL: 8,
+		/** Quadratic easing. */
+		QUADRATIC: 9,
+		/** Quartic easing. */
+		QUARTIC: 10,
+		/** Quintic easing. */
+		QUINTIC: 11,
+		/** Sinusoidal easing. */
+		SINUSOIDAL: 12,
+	};
+
 	module.exports = Keyframe;
 
 
 /***/ },
-/* 13 */
+/* 8 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1169,6 +1137,27 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	module.exports = Marker;
+
+
+/***/ },
+/* 9 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var Action = __webpack_require__(1);
+
+	/**
+	 * @class An ActionLibrary is an object of Actions.
+	 * @param data Data from Blender.
+	 */
+	function ActionLibrary(data) {
+		for (var actionName in data) {
+			this[actionName] = new Action(data[actionName]);
+		}
+	}
+
+	module.exports = ActionLibrary;
 
 
 /***/ }

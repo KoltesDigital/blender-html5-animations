@@ -4,7 +4,7 @@ var entry = require('./package.json').main;
 
 var header = [
 	'/**',
-	' * Blender HTML5 Animations 1.0.0',
+	' * Blender HTML5 Animations 1.0.1',
 	' * Copyright 2016 Jonathan Giroux',
 	' * MIT licence',
 	' */',
