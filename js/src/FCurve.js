@@ -39,6 +39,16 @@ FCurve.Extrapolation = {
 };
 
 /**
+ * When evaluation time differs less than epsilon from a keyframe, snaps to that keyframe.
+ * @type {number}
+ */
+FCurve.evaluationTimeEpsilon = 0.0001;
+
+function areTimesAlmostEqual(t1, t2) {
+	return Math.abs(t1 - t2) <= FCurve.evaluationEpsilon;
+}
+
+/**
  * Evaluates the curve.
  * @param {number} time Evaluation time.
  * @return {number} Value.
@@ -46,6 +56,11 @@ FCurve.Extrapolation = {
 FCurve.prototype.evaluate = function(time) {
 	var leftIndex = 0;
 	var leftKeyframe = this.keyframes[leftIndex];
+
+	if (areTimesAlmostEqual(time, leftKeyframe.time))
+	{
+		return leftKeyframe.value;
+	}
 
 	if (time <= leftKeyframe.time) {
 		switch (this.extrapolation) {
@@ -58,6 +73,12 @@ FCurve.prototype.evaluate = function(time) {
 
 	var rightIndex = this.keyframes.length - 1;
 	var rightKeyframe = this.keyframes[rightIndex];
+
+	if (areTimesAlmostEqual(time, rightKeyframe.time))
+	{
+		return rightKeyframe.value;
+	}
+
 	if (time >= rightKeyframe.time) {
 		switch (this.extrapolation) {
 			case FCurve.Extrapolation.LINEAR:
@@ -76,7 +97,16 @@ FCurve.prototype.evaluate = function(time) {
 	}
 
 	leftKeyframe = this.keyframes[leftIndex];
+	if (areTimesAlmostEqual(time, leftKeyframe.time))
+	{
+		return leftKeyframe.value;
+	}
+
 	rightKeyframe = this.keyframes[rightIndex];
+	if (areTimesAlmostEqual(time, rightKeyframe.time))
+	{
+		return rightKeyframe.value;
+	}
 
 	var relTime = time - leftKeyframe.time;
 	var begin = leftKeyframe.value;
