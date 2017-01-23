@@ -45,7 +45,7 @@
 
 		myActionTime = newActionTime;
 
-		myAction.setElementTransform(objectElement, myActionTime, blenderHTML5Animations.RotationMode.EULER_XYZ);
+		myAction.setElementTransform(objectElement, myActionTime, blenderHTML5Animations.Action.RotationMode.EULER_XYZ);
 	}
 
 	requestAnimationFrame(render);
