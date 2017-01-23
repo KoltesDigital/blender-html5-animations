@@ -1,5 +1,5 @@
 /**
- * Blender HTML5 Animations 1.0.1
+ * Blender HTML5 Animations 1.0.2
  * Copyright 2016 Jonathan Giroux
  * MIT licence
  */
@@ -425,7 +425,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	FCurve.evaluationTimeEpsilon = 0.0001;
 
 	function areTimesAlmostEqual(t1, t2) {
-		return Math.abs(t1 - t2) <= FCurve.evaluationEpsilon;
+		return Math.abs(t1 - t2) <= FCurve.evaluationTimeEpsilon;
 	}
 
 	/**
