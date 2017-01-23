@@ -45,7 +45,7 @@ FCurve.Extrapolation = {
 FCurve.evaluationTimeEpsilon = 0.0001;
 
 function areTimesAlmostEqual(t1, t2) {
-	return Math.abs(t1 - t2) <= FCurve.evaluationEpsilon;
+	return Math.abs(t1 - t2) <= FCurve.evaluationTimeEpsilon;
 }
 
 /**
