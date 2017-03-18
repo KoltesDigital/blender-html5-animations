@@ -13,7 +13,12 @@ var header = [
 module.exports = {
 	entry: entry,
 	externals: {
-		"gl-matrix": "window",
+		"gl-matrix": {
+			root: "window",
+			commonjs: "gl-matrix",
+			commonjs2: "gl-matrix",
+			amd: "gl-matrix",
+		},
 	},
 	output: {
 		path: 'dist',

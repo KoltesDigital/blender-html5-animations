@@ -5,11 +5,11 @@
  */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("window"));
+		module.exports = factory(require("gl-matrix"));
 	else if(typeof define === 'function' && define.amd)
-		define(["window"], factory);
+		define(["gl-matrix"], factory);
 	else if(typeof exports === 'object')
-		exports["blenderHTML5Animations"] = factory(require("window"));
+		exports["blenderHTML5Animations"] = factory(require("gl-matrix"));
 	else
 		root["blenderHTML5Animations"] = factory(root["window"]);
 })(this, function(__WEBPACK_EXTERNAL_MODULE_2__) {
